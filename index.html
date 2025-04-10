@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biweekly Paycheck Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .day {
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .breakdown {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .note {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Biweekly Paycheck Calculator</h2>
+
+    <label for="wage">Hourly Wage ($):</label>
+    <input type="number" id="wage" step="0.01" min="0" />
+
+    <label for="state">Select Your State:</label>
+    <select id="state">
+      <option value="0">-- Select State --</option>
+      <option value="0.00">Alabama (Non-Licensed)</option>
+      <option value="0.00">Alaska (Non-Licensed)</option>
+      <option value="0.00">Arizona (Non-Licensed)</option>
+      <option value="0.00">Arkansas</option>
+      <option value="0.00">California</option>
+      <option value="0.00">Colorado (Non-Licensed)</option>
+      <option value="0.00">Connecticut</option>
+      <option value="0.00">Delaware</option>
+      <option value="0.00">Florida</option>
+      <option value="0.00">Georgia (Non-Licensed)</option>
+      <option value="0.00">Hawaii</option>
+      <option value="0.00">Idaho (Non-Licensed)</option>
+      <option value="0.00">Illinois</option>
+      <option value="0.00">Indiana (Non-Licensed)</option>
+      <option value="0.00">Iowa</option>
+      <option value="0.00">Kansas (Non-Licensed)</option>
+      <option value="0.00">Kentucky (Non-Licensed)</option>
+      <option value="0.00">Louisiana</option>
+      <option value="0.00">Maine</option>
+      <option value="0.00">Maryland</option>
+      <option value="0.00">Massachusetts</option>
+      <option value="0.00">Michigan</option>
+      <option value="0.00">Minnesota (Non-Licensed)</option>
+      <option value="0.00">Mississippi</option>
+      <option value="0.00">Missouri (Non-Licensed)</option>
+      <option value="0.00">Montana</option>
+      <option value="0.00">Nebraska</option>
+      <option value="0.00">Nevada (Non-Licensed)</option>
+      <option value="0.00">New Hampshire (Non-Licensed)</option>
+      <option value="0.00">New Jersey</option>
+      <option value="0.00">New Mexico (Non-Licensed)</option>
+      <option value="0.00">New York</option>
+      <option value="0.00">North Carolina (Non-Licensed)</option>
+      <option value="0.00">North Dakota</option>
+      <option value="0.00">Ohio</option>
+      <option value="0.00">Oklahoma</option>
+      <option value="0.00">Oregon</option>
+      <option value="0.00">Pennsylvania</option>
+      <option value="0.00">Rhode Island</option>
+      <option value="0.00">South Carolina (Non-Licensed)</option>
+      <option value="0.00">South Dakota (Non-Licensed)</option>
+      <option value="0.00">Tennessee (Non-Licensed)</option>
+      <option value="0.00">Texas (Non-Licensed)</option>
+      <option value="0.00">Utah</option>
+      <option value="0.00">Vermont (Non-Licensed)</option>
+      <option value="0.00">Virginia</option>
+      <option value="0.00">Washington</option>
+      <option value="0.00">West Virginia</option>
+      <option value="0.00">Wisconsin (Non-Licensed)</option>
+      <option value="0.00">Wyoming</option>
+    </select>
+
+    <div class="checkbox-label">
+      <input type="checkbox" id="applyFederal" />
+      <label for="applyFederal">Apply Federal Tax (10%)</label>
+    </div>
+
+    <button onclick="alertNonLicensedStates()">View Non-Licensed States for Opticians</button>
+
+    <div id="week">
+      <div class="day"><label>Monday Hours: <input type="number" id="mon" min="0" /></label></div>
+      <div class="day"><label>Tuesday Hours: <input type="number" id="tue" min="0" /></label></div>
+      <div class="day"><label>Wednesday Hours: <input type="number" id="wed" min="0" /></label></div>
+      <div class="day"><label>Thursday Hours: <input type="number" id="thu" min="0" /></label></div>
+      <div class="day"><label>Friday Hours: <input type="number" id="fri" min="0" /></label></div>
+      <div class="day"><label>Saturday Hours: <input type="number" id="sat" min="0" /></label></div>
+      <div class="day"><label>Sunday Hours: <input type="number" id="sun" min="0" /></label></div>
+    </div>
+
+    <button onclick="calculatePay()">Calculate Biweekly Paycheck</button>
+    <div class="result" id="result"></div>
+    <div class="result" id="totalHours"></div>
+    <div class="breakdown" id="breakdown"></div>
+  </div>
+
+  <script>
+    function alertNonLicensedStates() {
+      const states = [
+        'Alabama', 'Alaska', 'Arizona', 'Colorado', 'Georgia', 'Idaho',
+        'Indiana', 'Kansas', 'Kentucky', 'Minnesota', 'Missouri', 'Nevada',
+        'New Hampshire', 'New Mexico', 'North Carolina', 'South Carolina',
+        'South Dakota', 'Tennessee', 'Texas', 'Vermont', 'Wisconsin'
+      ];
+      alert("States that do not require a license for opticians:\n\n" + states.join(", "));
+    }
+
+    function calculatePay() {
+      const wage = Math.max(parseFloat(document.getElementById('wage').value) || 0, 0);
+      const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      let weeklyHours = 0;
+
+      for (let i = 0; i < days.length; i++) {
+        let hours = Math.max(parseFloat(document.getElementById(days[i]).value) || 0, 0);
+        weeklyHours += hours;
+      }
+
+      const cappedRegularHours = Math.min(weeklyHours, 40);
+
+      let sundayHours = parseFloat(document.getElementById('sun').value);
+      let sundayPay = 0;
+      if (!isNaN(sundayHours) && sundayHours > 0) {
+        sundayPay = sundayHours * wage * 1.5;
+      } else {
+        sundayHours = 0;
+      }
+
+      const totalHours = weeklyHours + sundayHours;
+      const weeklyPay = (cappedRegularHours * wage) + sundayPay;
+      const biweeklyGrossPay = weeklyPay * 2;
+
+      const deductions = 48;
+      const employerContribution = 48;
+
+      const stateTaxRate = parseFloat(document.getElementById('state').value) || 0;
+      const federalTaxRate = document.getElementById('applyFederal').checked ? 0.10 : 0;
+
+      const stateTax = biweeklyGrossPay * stateTaxRate;
+      const federalTax = biweeklyGrossPay * federalTaxRate;
+
+      const biweeklyPay = biweeklyGrossPay - deductions - stateTax - federalTax + employerContribution;
+
+      document.getElementById('result').textContent = `Biweekly Paycheck: $${biweeklyPay.toFixed(2)}`;
+      document.getElementById('totalHours').textContent = `Total Weekly Hours Selected: ${totalHours.toFixed(2)} hrs`;
+      document.getElementById('breakdown').innerHTML = `
+        Gross Pay: $${biweeklyGrossPay.toFixed(2)}<br>
+        Deductions: -$${deductions.toFixed(2)}<br>
+        State Tax: -$${stateTax.toFixed(2)}<br>
+        Federal Tax: -$${federalTax.toFixed(2)}<br>
+        Employer Contribution: +$${employerContribution.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
